@@ -103,9 +103,9 @@ export const footerLinks = [
     {
         title: "Connect",
         links: [
-            { name: "Twitter", url: "#" },
-            { name: "LinkedIn", url: "#" },
-            { name: "GitHub", url: "#" }
+            { name: "Instagram", url: "https://www.instagram.com/n.i.t.e.s.h_14?igsh=MW84MWpnMjQwYmJmdw%3D%3D&utm_source=qr" },
+            { name: "LinkedIn", url: "https://www.linkedin.com/in/nitesh-yadav14/" },
+            { name: "GitHub", url: "https://github.com/nitesh-yadav14" }
         ]
     }
 ];
