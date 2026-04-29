@@ -21,7 +21,6 @@ const [isGenerating, setIsGenerating] = useState(false)
 const fetchProjectData = async () => {
 try {
 
-```
 const token = await getToken()
 
 const { data } = await api.get(`/api/user/projects/${projectId}`,{
@@ -31,14 +30,14 @@ const { data } = await api.get(`/api/user/projects/${projectId}`,{
 setProjectData(data.project)
 setIsGenerating(data.project.isGenerating)
 setLoading(false)
-```
+
 
 } catch (error: any) {
 
-```
+
 toast.error(error?.response?.data?.message || error.message)
 console.log(error)
-```
+
 
 }
 }
@@ -49,7 +48,6 @@ setIsGenerating(true)
 
 try {
 
-```
 const token = await getToken()
 
 const { data } = await api.post(
@@ -66,14 +64,14 @@ setProjectData((prev: Project) => ({
 
 toast.success(data.message)
 setIsGenerating(false)
-```
+
 
 } catch (error: any) {
 
-```
+
 toast.error(error?.response?.data?.message || error.message)
 console.log(error)
-```
+
 
 }
 }
@@ -93,13 +91,13 @@ useEffect(() => {
 
 if (user && isGenerating) {
 
-```
+
 const interval = setInterval(() => {
   fetchProjectData()
 }, 10000)
 
 return () => clearInterval(interval)
-```
+
 
 }
 
