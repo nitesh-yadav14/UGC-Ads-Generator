@@ -7,25 +7,22 @@ EllipsisIcon,
 ImageIcon,
 Loader2Icon,
 PlaySquareIcon,
-Share2Icon,
 Trash2Icon
 } from "lucide-react"
 import { GhostButton, PrimaryButton } from "./Buttons"
 import { useAuth } from "@clerk/clerk-react"
 import toast from "react-hot-toast"
-import api from "../configs/axios"   // ✅ FIXED IMPORT
+import api from "../configs/axios"
 
-const ProjectCard = (
-{
+const ProjectCard = ({
 gen,
 setGenerations,
 forCommunity = false
 }: {
-gen: Project,
-setGenerations: React.Dispatch<React.SetStateAction<Project[]>>,
+gen: Project
+setGenerations: React.Dispatch<React.SetStateAction<Project[]>>
 forCommunity?: boolean
-}
-) => {
+}) => {
 
 const { getToken } = useAuth()
 const navigate = useNavigate()
@@ -38,11 +35,12 @@ return () => window.removeEventListener("click", close)
 }, [])
 
 const handleDelete = async (id: string) => {
-const confirm = window.confirm("Are you sure you want to delete this project?")
-if (!confirm) return
 
-```
+const confirmDelete = window.confirm("Are you sure you want to delete this project?")
+if (!confirmDelete) return
+
 try {
+
   const token = await getToken()
 
   const { data } = await api.delete(`/api/project/${id}`, {
@@ -56,18 +54,20 @@ try {
   toast.success(data.message)
 
 } catch (error: any) {
+
   toast.error(error?.response?.data?.message || error.message)
   console.log(error)
+
 }
-```
 
 }
 
 const togglePublish = async (projectId: string) => {
+  
 try {
-const token = await getToken()
 
-```
+  const token = await getToken()
+
   const { data } = await api.get(`/api/user/publish/${projectId}`, {
     headers: { Authorization: `Bearer ${token}` }
   })
@@ -80,19 +80,20 @@ const token = await getToken()
     )
   )
 
-  toast.success(data.isPublished ? "Project published" : "Project unpublished")
+  toast.success(
+    data.isPublished ? "Project published" : "Project unpublished"
+  )
 
 } catch (error: any) {
+
   toast.error(error?.response?.data?.message || error.message)
   console.log(error)
-}
-```
 
 }
 
-return ( <div className="mb-4 break-inside-avoid">
+}
 
-```
+return ( <div className="mb-4 break-inside-avoid"> 
   <div className="relative bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition group">
 
     <div className={`${gen?.aspectRatio === "9:16" ? "aspect-9/16" : "aspect-video"} relative overflow-hidden`}>
@@ -128,6 +129,7 @@ return ( <div className="mb-4 break-inside-avoid">
       )}
 
       <div className="absolute left-3 top-3 flex gap-2 items-center">
+
         {gen.isGenerating && (
           <span className="text-xs px-2 py-1 bg-yellow-600/30 rounded-full">
             Generating
@@ -139,6 +141,7 @@ return ( <div className="mb-4 break-inside-avoid">
             Published
           </span>
         )}
+
       </div>
 
       {!forCommunity && (
@@ -163,7 +166,7 @@ return ( <div className="mb-4 break-inside-avoid">
                   download
                   className="flex gap-2 items-center px-4 py-2 hover:bg-white/10"
                 >
-                  <ImageIcon size={14} /> Download Image
+                  <ImageIcon size={14}/> Download Image
                 </a>
               )}
 
@@ -173,7 +176,7 @@ return ( <div className="mb-4 break-inside-avoid">
                   download
                   className="flex gap-2 items-center px-4 py-2 hover:bg-white/10"
                 >
-                  <PlaySquareIcon size={14} /> Download Video
+                  <PlaySquareIcon size={14}/> Download Video
                 </a>
               )}
 
@@ -181,11 +184,12 @@ return ( <div className="mb-4 break-inside-avoid">
                 onClick={() => handleDelete(gen.id)}
                 className="w-full flex gap-2 items-center px-4 py-2 hover:bg-red-950/30 text-red-400"
               >
-                <Trash2Icon size={14} /> Delete
+                <Trash2Icon size={14}/> Delete
               </button>
 
             </ul>
           )}
+
         </div>
       )}
 
@@ -193,7 +197,9 @@ return ( <div className="mb-4 break-inside-avoid">
 
     <div className="p-4">
 
-      <h3 className="font-medium text-lg mb-1">{gen.productName}</h3>
+      <h3 className="font-medium text-lg mb-1">
+        {gen.productName}
+      </h3>
 
       <p className="text-sm text-gray-400">
         Created: {new Date(gen.createdAt).toLocaleString()}
@@ -205,7 +211,7 @@ return ( <div className="mb-4 break-inside-avoid">
           <GhostButton
             onClick={() => {
               navigate(`/result/${gen.id}`)
-              scrollTo(0, 0)
+              scrollTo(0,0)
             }}
           >
             View Details
@@ -221,9 +227,10 @@ return ( <div className="mb-4 break-inside-avoid">
       )}
 
     </div>
+
   </div>
+
 </div>
-```
 
 )
 }
